@@ -22,9 +22,7 @@ class Service
 void test_service(Service srv);
 void test_adauga(Service srv);
 void test_stergere(Service srv);
-
-bool cmp_denumire(Oferta a, Oferta b);
-
-bool cmp_destinatie(Oferta a, Oferta b);
-
-bool cmp_tip_pret(Oferta a, Oferta b);
+void test_modificare(Service srv);
+void test_Filtrare1(Service srv);
+void test_Filtrare2(Service srv);
+void test_Sortare(Service srv);

@@ -23,6 +23,6 @@ Oferta& Oferta::operator =(const Oferta& x)
 void Oferta::show_oferta()
 {
 	/// afiseaza o oferta pe ecran
-	cout << this->id << "\t" <<  this->denumire << "\t" << this->destinatie
-		<< "\t" << this->tip << "\t" << this->pret << "$\n";
-}
+	cout << this->id << "       " <<  this->denumire << "       " << this->destinatie
+		<< "       " << this->tip << "       " << this->pret << "$\n";
+} 

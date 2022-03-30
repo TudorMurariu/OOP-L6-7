@@ -26,8 +26,7 @@ vector<Oferta> Service::get_list()
 string Service::Modifica(string denumire, string destinatie, string tip, double pret, int id)
 {
 	Oferta x(denumire, destinatie, tip, pret, id);
-	this->repo.Modificare(x);
-	return "";
+	return this->repo.Modificare(x);
 }
 
 vector<Oferta> Service::Filtrare1(string dest, vector<Oferta> v)
@@ -116,6 +115,8 @@ void Service::Adaugare_Predefinite()
 	this->repo.Add(x6);
 	Oferta x7("Denumire4", "Delhi", "tip32", 552.7, id_count++);
 	this->repo.Add(x7);
+	Oferta x8("Denumire", "Iasi", "tip32", 552.7, id_count++);
+	this->repo.Add(x8);
 }
 
 /// Functii de teste
@@ -124,6 +125,14 @@ void test_service(Service srv)
 {
 	test_adauga(srv);
 	test_stergere(srv);
+	test_modificare(srv);
+	id_count = 0;
+	test_Filtrare1(srv);
+	id_count = 0;
+	test_Filtrare2(srv);
+	id_count = 0;
+	test_Sortare(srv);
+	id_count = 0;
 }
 
 void test_adauga(Service srv)
@@ -143,4 +152,46 @@ void test_stergere(Service srv)
 	assert(srv.Sterge(1) == "");
 	assert(srv.get_list().size() == 0);
 	assert(srv.Sterge(1) == "Nu exista o oferta cu id-ul dat");
+}
+
+void test_modificare(Service srv)
+{
+	srv.Adauga("OFERTA", "destinatie", "tip", 33.4);
+	assert(srv.Modifica("vacanta", "Iasi", "tip1", 25.6, 7) == "Nu exista o oferta cu id-ul dat");
+	assert(srv.Modifica("Oferta", "destinatie", "tip1", 33, 2) == "");
+	vector<Oferta> v = srv.get_list();
+	assert(v[0].denumire == "Oferta");
+	assert(v[0].destinatie == "destinatie");
+	assert(v[0].tip == "tip1");
+	assert(v[0].pret == 33);
+}
+
+void test_Filtrare1(Service srv)
+{
+	srv.Adaugare_Predefinite();
+	vector<Oferta> v1 = srv.Filtrare1("Iasi", srv.get_list());
+	assert(v1[0].pret == 552.7);
+	assert(v1.size() == 1);
+}
+
+void test_Filtrare2(Service srv)
+{
+	srv.Adaugare_Predefinite();
+	vector<Oferta> v1 = srv.Filtrare2(32, srv.get_list());
+	assert(v1.size() == 2);
+	assert(v1[0].pret == 32);
+	assert(v1[1].pret == 5);
+	assert(v1[0].denumire == "Denumire2");
+}
+
+void test_Sortare(Service srv)
+{
+	srv.Adaugare_Predefinite();
+	vector<Oferta> v1 = srv.Sortare(1, srv.get_list());
+	assert(v1[0].denumire == "Denumire");
+	vector<Oferta> v2 = srv.Sortare(2, srv.get_list());
+	assert(v2[0].destinatie == "Bucuresti");
+	vector<Oferta> v3 = srv.Sortare(3, srv.get_list());
+	assert(v3[0].tip == "tip1");
+	assert(v3[1].tip == "tip2");
 }
