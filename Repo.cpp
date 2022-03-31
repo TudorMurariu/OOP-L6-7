@@ -12,6 +12,7 @@ vector<Oferta> Repo::get_list()
 
 int Repo::cauta_id(int id)
 {
+	/* cautam un id dat */
 	for (int i = 0; i < this->Lista_oferte.size(); i++)
 	{
 		if (id == this->Lista_oferte.at(i).id)
@@ -32,7 +33,7 @@ string Repo::Sterge(int id)
 	/* Stergem elementul cu id ul id daca acesta exista , altfel trimitem 
 	un mesaj de eroare */
 	
-	int poz = this->cauta_id(id);
+	const int poz = this->cauta_id(id);
 	if (poz != -1)
 	{
 		this->Lista_oferte.erase(this->Lista_oferte.begin() + poz);
@@ -47,7 +48,7 @@ string Repo::Modificare(Oferta x)
 {
 	/* Cautam un mesaj pentru a il modifica */
 
-	int poz = this->cauta_id(x.id);
+	const int poz = this->cauta_id(x.id);
 	if (poz != -1)
 	{
 		this->Lista_oferte.at(poz) = x;

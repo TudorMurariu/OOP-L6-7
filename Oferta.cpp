@@ -9,19 +9,30 @@ Oferta::Oferta(string denumire, string destinatie, string tip, double pret, int 
 	this->id = id;
 }
 
-Oferta& Oferta::operator =(const Oferta& x)
+//Oferta& Oferta::operator =(const Oferta& x)
+//{
+//	this->denumire = x.denumire;
+//	this->destinatie = x.destinatie;
+//	this->id = x.id;
+//	this->pret = x.pret;
+//	this->tip = x.tip;
+//	cout << "!!!!\n";
+//	return *this;
+//}
+
+// Copy Constructor
+Oferta::Oferta(const Oferta& x)
 {
 	this->denumire = x.denumire;
 	this->destinatie = x.destinatie;
 	this->id = x.id;
 	this->pret = x.pret;
 	this->tip = x.tip;
-	return *this;
+	cout << "!!!!\n";
 }
 
 /// used for UI
-void Oferta::show_oferta()
-{
+void Oferta::show_oferta() const{
 	/// afiseaza o oferta pe ecran
 	cout << this->id << "       " <<  this->denumire << "       " << this->destinatie
 		<< "       " << this->tip << "       " << this->pret << "$\n";

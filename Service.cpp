@@ -35,8 +35,8 @@ vector<Oferta> Service::Filtrare1(string dest, vector<Oferta> v)
 	/// cu aceeasi destinatie cu cea ceruta
 	vector<Oferta> new_v;
 	for (int i = 0; i < v.size(); i++)
-		if (dest == v[i].destinatie)
-			new_v.push_back(v[i]);
+		if (dest == v.at(i).destinatie)
+			new_v.push_back(v.at(i));
 	return new_v;
 }
 
@@ -46,26 +46,23 @@ vector<Oferta> Service::Filtrare2(double pret, vector<Oferta> v)
 	/// cu pretul mai mic sau egal decat cel cerut
 	vector<Oferta> new_v;
 	for (int i = 0; i < v.size(); i++)
-		if (pret >= v[i].pret)
-			new_v.push_back(v[i]);
+		if (pret >= v.at(i).pret)
+			new_v.push_back(v.at(i));
 	return new_v;
 }
 
 /// Functiile de comparare vor fi folosite doar in acest modul 
-bool cmp_denumire(Oferta a, Oferta b)
-{
+bool cmp_denumire(Oferta a, Oferta b) noexcept {
 	/// comparare dupa denumire
 	return a.denumire < b.denumire;
 }
 
-bool cmp_destinatie(Oferta a, Oferta b)
-{
+bool cmp_destinatie(Oferta a, Oferta b) noexcept {
 	/// comparare dupa destinatie
 	return a.destinatie < b.destinatie;
 }
 
-bool cmp_tip_pret(Oferta a, Oferta b)
-{
+bool cmp_tip_pret(Oferta a, Oferta b) noexcept {
 	/// comparare dupa tip iar apoi dupa pret
 	if (a.tip == b.tip)
 		return a.pret < b.pret;
@@ -138,11 +135,11 @@ void test_service(Service srv)
 void test_adauga(Service srv)
 {
 	srv.Adauga("OFERTA", "destinatie", "tip", 33.4);
-	assert(srv.get_list()[0].denumire == "OFERTA");
-	assert(srv.get_list()[0].destinatie == "destinatie");
-	assert(srv.get_list()[0].tip == "tip");
-	assert(srv.get_list()[0].pret == 33.4);
-	assert(srv.get_list()[0].denumire != "312rewsda");
+	assert(srv.get_list().at(0).denumire == "OFERTA");
+	assert(srv.get_list().at(0).destinatie == "destinatie");
+	assert(srv.get_list().at(0).tip == "tip");
+	assert(srv.get_list().at(0).pret == 33.4);
+	assert(srv.get_list().at(0).denumire != "312rewsda");
 	assert(srv.get_list().size() == 1);
 }
 
@@ -160,17 +157,17 @@ void test_modificare(Service srv)
 	assert(srv.Modifica("vacanta", "Iasi", "tip1", 25.6, 7) == "Nu exista o oferta cu id-ul dat");
 	assert(srv.Modifica("Oferta", "destinatie", "tip1", 33, 2) == "");
 	vector<Oferta> v = srv.get_list();
-	assert(v[0].denumire == "Oferta");
-	assert(v[0].destinatie == "destinatie");
-	assert(v[0].tip == "tip1");
-	assert(v[0].pret == 33);
+	assert(v.at(0).denumire == "Oferta");
+	assert(v.at(0).destinatie == "destinatie");
+	assert(v.at(0).tip == "tip1");
+	assert(v.at(0).pret == 33);
 }
 
 void test_Filtrare1(Service srv)
 {
 	srv.Adaugare_Predefinite();
 	vector<Oferta> v1 = srv.Filtrare1("Iasi", srv.get_list());
-	assert(v1[0].pret == 552.7);
+	assert(v1.at(0).pret == 552.7);
 	assert(v1.size() == 1);
 }
 
@@ -179,19 +176,19 @@ void test_Filtrare2(Service srv)
 	srv.Adaugare_Predefinite();
 	vector<Oferta> v1 = srv.Filtrare2(32, srv.get_list());
 	assert(v1.size() == 2);
-	assert(v1[0].pret == 32);
-	assert(v1[1].pret == 5);
-	assert(v1[0].denumire == "Denumire2");
+	assert(v1.at(0).pret == 32);
+	assert(v1.at(1).pret == 5);
+	assert(v1.at(0).denumire == "Denumire2");
 }
 
 void test_Sortare(Service srv)
 {
 	srv.Adaugare_Predefinite();
 	vector<Oferta> v1 = srv.Sortare(1, srv.get_list());
-	assert(v1[0].denumire == "Denumire");
+	assert(v1.at(0).denumire == "Denumire");
 	vector<Oferta> v2 = srv.Sortare(2, srv.get_list());
-	assert(v2[0].destinatie == "Bucuresti");
+	assert(v2.at(0).destinatie == "Bucuresti");
 	vector<Oferta> v3 = srv.Sortare(3, srv.get_list());
-	assert(v3[0].tip == "tip1");
-	assert(v3[1].tip == "tip2");
+	assert(v3.at(0).tip == "tip1");
+	assert(v3.at(1).tip == "tip2");
 }
