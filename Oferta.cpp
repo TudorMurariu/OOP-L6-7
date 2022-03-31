@@ -16,7 +16,6 @@ Oferta::Oferta(string denumire, string destinatie, string tip, double pret, int 
 //	this->id = x.id;
 //	this->pret = x.pret;
 //	this->tip = x.tip;
-//	cout << "!!!!\n";
 //	return *this;
 //}
 
@@ -28,7 +27,6 @@ Oferta::Oferta(const Oferta& x)
 	this->id = x.id;
 	this->pret = x.pret;
 	this->tip = x.tip;
-	cout << "!!!!\n";
 }
 
 /// used for UI
