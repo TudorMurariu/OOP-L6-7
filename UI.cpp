@@ -10,8 +10,8 @@ void console::run()
 
 	while (true)
 	{
-		int id,x;
-		string error,destinatie;
+		int x;
+		string error,destinatie,id;
 		double pret;
 		int command;
 		cout << "Introdu o comanda : ";
@@ -129,7 +129,7 @@ string console::adauga_oferta()
 	string tip;
 	cin >> tip;
 	cout << "Pretul : ";
-	double pret;
+	string pret;
 	cin >> pret;
 	return this->srv.Adauga(denumire, destinatie, tip, pret);
 }
@@ -137,7 +137,7 @@ string console::adauga_oferta()
 string console::modifica_oferta()
 {
 	/// citim o oferta si incercam sa o modificam
-	int id;
+	string id;
 	cout << "ID-ul : ";
 	cin >> id;
 
@@ -151,14 +151,14 @@ string console::modifica_oferta()
 	string tip;
 	cin >> tip;
 	cout << "Pretul : ";
-	double pret;
+	string pret;
 	cin >> pret;
 	return this->srv.Modifica(denumire, destinatie, tip, pret,id);
 }
 
-int console::citire_id()
+string console::citire_id()
 {
-	int id;
+	string id;
 	cout << "Id-ul : ";
 	cin >> id;
 	return id;

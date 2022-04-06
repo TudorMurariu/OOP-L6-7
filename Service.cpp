@@ -1,21 +1,36 @@
 #include "Service.h"
 
 
-Service::Service(Repo repo) :repo(repo) {
+Service::Service(Repo repo, Valid valid) :repo(repo) {
 	this->repo = repo;
+	this->valid = valid;
 }
 
 static int id_count = 0;
-string Service::Adauga(string denumire, string destinatie, string tip, double pret)
+string Service::Adauga(string denumire, string destinatie, string tip, string pret)
 {
-	Oferta x(denumire, destinatie, tip, pret,id_count++);
+	/*
+	*  Validam inputul si daca este corect il trimitem in repo
+	*/
+
+	if (!this->valid.is_pret(pret))
+		return "Pret incorect!\n";
+	const double pret_d = stod(pret);
+	Oferta x(denumire, destinatie, tip, pret_d,id_count++);
 	this->repo.Add(x);
 	return "";
 }
 
-string Service::Sterge(int id)
+string Service::Sterge(string id)
 {
-	return this->repo.Sterge(id);
+	/*
+	*  Validam inputul si daca este corect il trimitem in repo
+	*/
+
+	if (!this->valid.is_id(id))
+		return "ID gresit\n";
+	const int id_int = stoi(id);
+	return this->repo.Sterge(id_int);
 }
 
 vector<Oferta> Service::get_list()
@@ -23,9 +38,21 @@ vector<Oferta> Service::get_list()
 	return this->repo.get_list();
 }
 
-string Service::Modifica(string denumire, string destinatie, string tip, double pret, int id)
+string Service::Modifica(string denumire, string destinatie, string tip, string pret, string id)
 {
-	Oferta x(denumire, destinatie, tip, pret, id);
+	/*
+	*  Validam inputul si daca este corect il trimitem in repo
+	*/
+
+	if (!this->valid.is_id(id))
+		return "ID gresit\n";
+	const int id_int = stoi(id);
+
+	if (!this->valid.is_pret(pret))
+		return "Pret incorect!\n";
+	const double pret_d = stod(pret);
+
+	Oferta x(denumire, destinatie, tip, pret_d, id_int);
 	return this->repo.Modificare(x);
 }
 
@@ -134,7 +161,7 @@ void test_service(Service srv)
 
 void test_adauga(Service srv)
 {
-	srv.Adauga("OFERTA", "destinatie", "tip", 33.4);
+	srv.Adauga("OFERTA", "destinatie", "tip", "33.4");
 	assert(srv.get_list().at(0).denumire == "OFERTA");
 	assert(srv.get_list().at(0).destinatie == "destinatie");
 	assert(srv.get_list().at(0).tip == "tip");
@@ -145,17 +172,17 @@ void test_adauga(Service srv)
 
 void test_stergere(Service srv)
 {
-	srv.Adauga("OFERTA", "destinatie", "tip", 33.4);
-	assert(srv.Sterge(1) == "");
+	srv.Adauga("OFERTA", "destinatie", "tip", "33.4");
+	assert(srv.Sterge("1") == "");
 	assert(srv.get_list().size() == 0);
-	assert(srv.Sterge(1) == "Nu exista o oferta cu id-ul dat");
+	assert(srv.Sterge("1") == "Nu exista o oferta cu id-ul dat");
 }
 
 void test_modificare(Service srv)
 {
-	srv.Adauga("OFERTA", "destinatie", "tip", 33.4);
-	assert(srv.Modifica("vacanta", "Iasi", "tip1", 25.6, 7) == "Nu exista o oferta cu id-ul dat");
-	assert(srv.Modifica("Oferta", "destinatie", "tip1", 33, 2) == "");
+	srv.Adauga("OFERTA", "destinatie", "tip", "33.4");
+	assert(srv.Modifica("vacanta", "Iasi", "tip1", "25.6", "7") == "Nu exista o oferta cu id-ul dat");
+	assert(srv.Modifica("Oferta", "destinatie", "tip1", "33", "2") == "");
 	vector<Oferta> v = srv.get_list();
 	assert(v.at(0).denumire == "Oferta");
 	assert(v.at(0).destinatie == "destinatie");

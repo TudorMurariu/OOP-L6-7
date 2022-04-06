@@ -13,6 +13,6 @@ class console
 		void run();
 		string adauga_oferta();
 		string modifica_oferta();
-		int citire_id();
+		string citire_id();
 		void afis_lista(vector<Oferta> l);
 };
