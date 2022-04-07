@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+using namespace std;
 
 template<class Telem>
 class vector {
@@ -11,6 +13,7 @@ class vector {
 		Telem* v;
 		vector();
 		~vector();
+		vector(const vector<Telem>& ot);
 		int size() const;
 		void push_back(Telem x);
 		Telem* begin();
@@ -28,13 +31,26 @@ vector<Telem>::vector()
 	/// </summary>
 	this->len = 0;
 	this->capacity = 2;
-	this->v = (Telem*)malloc(sizeof(Telem) * this->capacity);
+	this->v = new Telem[this->capacity];
 }
 
 template<class Telem>
 vector<Telem>::~vector()
 {
-	delete[] this->v;
+	//delete[] this->v;
+}
+
+template<class Telem>
+vector<Telem>::vector(const vector<Telem>& ot)
+{
+	this->capacity = ot.capacity;
+	this->len = ot.len;
+	this->v = new Telem[ot.capacity];
+
+	for (int i = 0; i < this->len; i++)
+	{
+		this->v[i] = ot.v[i];
+	}
 }
 
 template<class Telem>
@@ -46,10 +62,10 @@ void vector<Telem>::push_back(Telem x)
 	if (this->len + 1 >= this->capacity)
 	{
 		int new_capacity = 2 * this->capacity;
-		Telem* new_v = (Telem*)malloc(sizeof(Telem) * new_capacity);
+		Telem* new_v = new Telem[new_capacity];
 		for (int i = 0; i < this->len; i++)
 			new_v[i] = this->v[i];
-		free(this->v);
+		delete[] this->v;
 		this->v = new_v;
 		this->capacity = new_capacity;
 	}

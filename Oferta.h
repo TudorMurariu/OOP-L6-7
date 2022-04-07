@@ -14,6 +14,7 @@ class Oferta
 		double pret;
 		int id;
 
+		Oferta();
 		Oferta(string denumire, string destinatie, string tip, double pret,int id);
 		//Oferta& operator =(const Oferta& x);
 		Oferta(const Oferta& x);

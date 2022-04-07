@@ -1,5 +1,14 @@
 #include "Oferta.h"
 
+Oferta::Oferta()
+{
+	this->denumire = "";
+	this->destinatie = "";
+	this->pret = -1;
+	this->tip = "";
+	this->id = -1;
+}
+
 Oferta::Oferta(string denumire, string destinatie, string tip, double pret, int id)
 {
 	this->denumire = denumire;
