@@ -25,6 +25,7 @@
     <ClCompile Include="Service.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Validators.cpp" />
+    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Oferta.h" />
@@ -32,6 +33,7 @@
     <ClInclude Include="Service.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Validators.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

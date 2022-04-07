@@ -15,7 +15,7 @@ int Repo::cauta_id(int id)
 	/* cautam un id dat */
 	for (int i = 0; i < this->Lista_oferte.size(); i++)
 	{
-		if (id == this->Lista_oferte.at(i).id)
+		if (id == this->Lista_oferte.v[i].id)
 			return i;
 	}
 
@@ -36,7 +36,7 @@ string Repo::Sterge(int id)
 	const int poz = this->cauta_id(id);
 	if (poz != -1)
 	{
-		this->Lista_oferte.erase(this->Lista_oferte.begin() + poz);
+		this->Lista_oferte.erase(poz);
 		return "";
 	}
 	
@@ -51,7 +51,7 @@ string Repo::Modificare(Oferta x)
 	const int poz = this->cauta_id(x.id);
 	if (poz != -1)
 	{
-		this->Lista_oferte.at(poz) = x;
+		this->Lista_oferte.v[poz] = x;
 		return "";
 	}
 

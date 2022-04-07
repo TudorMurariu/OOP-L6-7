@@ -1,12 +1,12 @@
 ﻿#include <iostream>
 #include <string>
-#include <vector>
 
 #include "Oferta.h"
 #include "UI.h"
 #include "Service.h"
 #include "Repo.h"
 #include "Validators.h"
+#include "Vector.h"
 using namespace std;
 
 void all_tests();
