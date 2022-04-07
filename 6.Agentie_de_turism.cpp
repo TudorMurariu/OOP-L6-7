@@ -1,6 +1,5 @@
 ﻿#include <iostream>
 #include <string>
-#include <vector>
 
 #include "Oferta.h"
 #include "UI.h"
