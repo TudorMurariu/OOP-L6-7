@@ -10,7 +10,7 @@ using namespace std;
 
 void all_tests();
 
-vector<Oferta> Lista_oferte;
+my_vector Lista_oferte;
 
 int main()
 {

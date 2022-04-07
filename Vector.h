@@ -1,5 +1,7 @@
 #pragma once
 #include "Oferta.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 class my_vector {
 

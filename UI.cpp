@@ -62,14 +62,14 @@ void console::run()
 			{
 				cout << "Destiantia cautata : ";
 				cin >> destinatie;
-				vector<Oferta> v = this->srv.Filtrare1(destinatie, this->srv.get_list());
+				my_vector v = this->srv.Filtrare1(destinatie, this->srv.get_list());
 				this->afis_lista(v);
 			}
 			else // dupa pret
 			{
 				cout << "Pretul cautat este : ";
 				cin >> pret;
-				vector<Oferta> v = this->srv.Filtrare2(pret, this->srv.get_list());
+				my_vector v = this->srv.Filtrare2(pret, this->srv.get_list());
 				this->afis_lista(v);
 			}
 			break;
@@ -164,10 +164,10 @@ string console::citire_id()
 	return id;
 }
 
-void console::afis_lista(vector<Oferta> l)
+void console::afis_lista(my_vector l)
 {
 	/// Afiseaza lista de oferte pe ecran
 	cout << "id       denumire       destinatie       tip       pret\n";
 	for (int i = 0; i < l.size(); i++)
-		l.at(i).show_oferta();
+		l.v[i].show_oferta();
 }

@@ -1,11 +1,11 @@
 #include "Repo.h"
 
-Repo::Repo(vector<Oferta> l)
+Repo::Repo(my_vector l)
 {
 	this->Lista_oferte = l;
 }
 
-vector<Oferta> Repo::get_list()
+my_vector Repo::get_list()
 {
 	return this->Lista_oferte;
 }

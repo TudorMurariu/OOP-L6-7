@@ -5,12 +5,12 @@ class Repo
 {
 	private:
 
-		vector<Oferta> Lista_oferte;
+		my_vector Lista_oferte;
 
 	public:
 
-		Repo(vector<Oferta> l);
-		vector<Oferta> get_list();
+		Repo(my_vector l);
+		my_vector get_list();
 		void Add(Oferta x);
 		int cauta_id(int id);
 		string Sterge(int id);
