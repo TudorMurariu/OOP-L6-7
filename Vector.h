@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <stdlib.h>
+#include <stdio.h>
 using namespace std;
 
 template<class Telem>
@@ -61,7 +63,7 @@ void vector<Telem>::push_back(Telem x)
 	/// vectorului
 	if (this->len + 1 >= this->capacity)
 	{
-		int new_capacity = 2 * this->capacity;
+		const int new_capacity = 2 * this->capacity;
 		Telem* new_v = new Telem[new_capacity];
 		for (int i = 0; i < this->len; i++)
 			new_v[i] = this->v[i];

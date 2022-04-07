@@ -61,4 +61,6 @@ void test_is_pret(Valid valid)
 	assert(valid.is_id("a32.a") == false);
 	assert(valid.is_id("") == false);
 	assert(valid.is_id("a32   5") == false);
+	assert(valid.is_id("-2") == false);
+	assert(valid.is_id("adwaw") == false);
 }

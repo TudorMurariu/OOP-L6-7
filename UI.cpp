@@ -169,5 +169,5 @@ void console::afis_lista(vector<Oferta> l)
 	/// Afiseaza lista de oferte pe ecran
 	cout << "id       denumire       destinatie       tip       pret\n";
 	for (int i = 0; i < l.size(); i++)
-		l.v[0].show_oferta();
+		l.v[i].show_oferta();
 }

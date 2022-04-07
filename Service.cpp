@@ -168,21 +168,27 @@ void test_adauga(Service srv)
 	assert(srv.get_list().v[0].pret == 33.4);
 	assert(srv.get_list().v[0].denumire != "312rewsda");
 	assert(srv.get_list().size() == 1);
+	assert(srv.Adauga("OFERTA", "destinatie", "tip", "asdff") == "Pret incorect!\n");
 }
 
 void test_stergere(Service srv)
 {
 	srv.Adauga("OFERTA", "destinatie", "tip", "33.4");
+	srv.Adauga("OFERTA1", "destinatie213", "tip132", "33.432");
 	assert(srv.Sterge("1") == "");
-	assert(srv.get_list().size() == 0);
-	assert(srv.Sterge("1") == "Nu exista o oferta cu id-ul dat");
+	assert(srv.get_list().size() == 1);
+	assert(srv.Sterge("5") == "Nu exista o oferta cu id-ul dat");
+	assert(srv.Sterge("sdfs") == "ID gresit\n");
+	assert(srv.Sterge("2") == "");
 }
 
 void test_modificare(Service srv)
 {
 	srv.Adauga("OFERTA", "destinatie", "tip", "33.4");
 	assert(srv.Modifica("vacanta", "Iasi", "tip1", "25.6", "7") == "Nu exista o oferta cu id-ul dat");
-	assert(srv.Modifica("Oferta", "destinatie", "tip1", "33", "2") == "");
+	assert(srv.Modifica("Oferta", "destinatie", "tip1", "33", "3") == "");
+	assert(srv.Modifica("Oferta", "destinatie", "tip1", "33", "sdf34fds") == "ID gresit\n");
+	assert(srv.Modifica("Oferta", "destinatie", "tip1", "asd33342", "2") == "Pret incorect!\n");
 	vector<Oferta> v = srv.get_list();
 	assert(v.v[0].denumire == "Oferta");
 	assert(v.v[0].destinatie == "destinatie");

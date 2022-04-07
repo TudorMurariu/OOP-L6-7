@@ -9,6 +9,11 @@ Oferta::Oferta()
 	this->id = -1;
 }
 
+Oferta::~Oferta()
+{
+	// uh
+}
+
 Oferta::Oferta(string denumire, string destinatie, string tip, double pret, int id)
 {
 	this->denumire = denumire;
