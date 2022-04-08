@@ -9,15 +9,15 @@ using namespace std;
 
 class Oferta
 {
-	public:
-		string denumire,destinatie,tip;
-		double pret;
-		int id;
+public:
+	string denumire, destinatie, tip;
+	double pret;
+	int id;
 
-		Oferta();
-		Oferta(string denumire, string destinatie, string tip, double pret,int id);
-		//Oferta& operator =(const Oferta& x);
-		Oferta(const Oferta& x);
-		~Oferta();
-		void show_oferta() const;
+	Oferta();
+	Oferta(string denumire, string destinatie, string tip, double pret, int id);
+	//Oferta& operator =(const Oferta& x);
+	Oferta(const Oferta& x);
+	~Oferta() = default;
+	void show_oferta() const;
 };

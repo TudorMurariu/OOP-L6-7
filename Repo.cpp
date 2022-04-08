@@ -1,11 +1,11 @@
 #include "Repo.h"
 
-Repo::Repo(vector<Oferta> l)
+Repo::Repo(my_vector<Oferta> l)
 {
 	this->Lista_oferte = l;
 }
 
-vector<Oferta> Repo::get_list()
+my_vector<Oferta> Repo::get_list()
 {
 	return this->Lista_oferte;
 }
@@ -15,7 +15,7 @@ int Repo::cauta_id(int id)
 	/* cautam un id dat */
 	for (int i = 0; i < this->Lista_oferte.size(); i++)
 	{
-		if (id == this->Lista_oferte.v[i].id)
+		if (id == this->Lista_oferte.at(i).id)
 			return i;
 	}
 

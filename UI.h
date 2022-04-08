@@ -14,5 +14,5 @@ class console
 		string adauga_oferta();
 		string modifica_oferta();
 		string citire_id();
-		void afis_lista(vector<Oferta> l);
+		void afis_lista(my_vector<Oferta> l);
 };

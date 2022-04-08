@@ -14,11 +14,11 @@ class Service
 		string Adauga(string denumire, string destinatie, string tip, string pret);
 		string Sterge(string id);
 		string Modifica(string denumire, string destinatie, string tip, string pret, string id);
-		vector<Oferta> Filtrare1(string dest, vector<Oferta> v);
-		vector<Oferta> Filtrare2(double pret, vector<Oferta> v);
-		vector<Oferta> Sortare(int x, vector<Oferta> v);
+		my_vector<Oferta> Filtrare1(string dest, my_vector<Oferta> v);
+		my_vector<Oferta> Filtrare2(double pret, my_vector<Oferta> v);
+		my_vector<Oferta> Sortare(int x, my_vector<Oferta> v);
 		void Adaugare_Predefinite();
-		vector<Oferta> get_list();
+		my_vector<Oferta> get_list();
 };
 
 void test_service(Service srv);

@@ -2,31 +2,55 @@
 #include <string>
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 using namespace std;
 
-template<class Telem>
-class vector {
+template<typename Telem>
+class Iterator;
+
+template<typename Telem>
+class my_vector {
+
+	friend class Iterator<Telem>;
 
 	private:
-		int len;
 		int capacity;
 
 	public:
+		int len;
 		Telem* v;
-		vector();
-		~vector();
-		vector(const vector<Telem>& ot);
+		my_vector();
+		~my_vector();
+		my_vector(const my_vector<Telem>& ot);
+		my_vector<Telem>& operator =(const my_vector<Telem>& x);
 		int size() const;
 		void push_back(Telem x);
 		Telem* begin();
 		Telem* end();
 		void erase(int poz);
+		Telem& at(int i);
 };
 
+template<typename Telem>
+my_vector<Telem>& my_vector<Telem>:: operator =(const my_vector<Telem>& x)
+{
+	if (&x == this)
+		return *this;
 
+	delete[] this->v;
+	this->v = new Telem[x.capacity];
+	for (int i = 0; i < x.len; i++)
+	{
+		this->v[i] = x.v[i];
+	}
+	this->len = x.len;
+	this->capacity = x.capacity;
 
-template<class Telem>
-vector<Telem>::vector()
+	return *this;
+}
+
+template<typename Telem>
+my_vector<Telem>::my_vector()
 {
 	/// <summary>
 	/// Initiem datele si facem loc in memorie pentru ele
@@ -36,14 +60,14 @@ vector<Telem>::vector()
 	this->v = new Telem[this->capacity];
 }
 
-template<class Telem>
-vector<Telem>::~vector()
+template<typename Telem>
+my_vector<Telem>::~my_vector()
 {
-	//delete[] this->v;
+	delete[] this->v;
 }
 
-template<class Telem>
-vector<Telem>::vector(const vector<Telem>& ot)
+template<typename Telem>
+my_vector<Telem>::my_vector(const my_vector<Telem>& ot)
 {
 	this->capacity = ot.capacity;
 	this->len = ot.len;
@@ -55,8 +79,8 @@ vector<Telem>::vector(const vector<Telem>& ot)
 	}
 }
 
-template<class Telem>
-void vector<Telem>::push_back(Telem x)
+template<typename Telem>
+void my_vector<Telem>::push_back(Telem x)
 {
 	/// Adaugam un element in vector
 	/// in cazul in care avem nevoie de mai multa memorie , dublam capacitatea
@@ -75,27 +99,67 @@ void vector<Telem>::push_back(Telem x)
 	v[this->len++] = x;
 }
 
-template<class Telem>
-int vector<Telem>::size() const {
+template<typename Telem>
+int my_vector<Telem>::size() const{
 	return this->len;
 }
 
-template<class Telem>
-Telem* vector<Telem>::begin()
-{
+template<typename Telem>
+Telem* my_vector<Telem>::begin(){
 	return this->v;
 }
 
-template<class Telem>
-Telem* vector<Telem>::end()
-{
+template<typename Telem>
+Telem* my_vector<Telem>::end(){
 	return this->v + this->len;
 }
 
-template<class Telem>
-void vector<Telem>::erase(int poz)
+template<typename Telem>
+void my_vector<Telem>::erase(int poz)
 {
 	for (int i = poz; i < this->len - 1; i++)
 		this->v[i] = this->v[i + 1];
 	this->len--;
 }
+
+template<typename Telem>
+Telem& my_vector<Telem>::at(int i)
+{
+	return this->v[i];
+}
+
+
+template<typename Telem>
+class Iterator {
+
+	private:
+		my_vector<Telem>& lista;
+		int i;
+
+	public:
+
+		Iterator(my_vector<Telem>& Vector1) noexcept :lista{ Vector1 } {
+			this->i = 0;
+		}
+
+		Telem& element()
+		{
+			return this->lista.at(this->i);
+		}
+
+		void urmator()
+		{
+			i++;
+		}
+
+		void prim()
+		{
+			i = 0;
+		}
+
+		bool valid()
+		{
+			return this->i > 0 && this->i < lista.len;
+		}
+};
+
