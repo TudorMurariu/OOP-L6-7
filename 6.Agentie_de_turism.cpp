@@ -36,6 +36,7 @@ void all_tests()
     Service service(repo, valid);
     test_service(service);
     tests_validators(valid);
+    test_iterator();
 }
 
 

@@ -34,8 +34,9 @@ class my_vector {
 template<typename Telem>
 my_vector<Telem>& my_vector<Telem>:: operator =(const my_vector<Telem>& x)
 {
-	if (&x == this)
-		return *this;
+	// not needed
+	//if (&x == this)
+		///return *this;
 
 	delete[] this->v;
 	this->v = new Telem[x.capacity];
