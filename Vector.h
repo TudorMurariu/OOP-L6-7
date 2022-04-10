@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// vector class
 class my_vector {
 
 private:

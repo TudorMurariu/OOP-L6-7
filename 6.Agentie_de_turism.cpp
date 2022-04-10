@@ -25,6 +25,7 @@ int main()
 
 void all_tests()
 {
+    // tests
     Valid valid;
     Repo repo(Lista_oferte);
     Service service(repo,valid);

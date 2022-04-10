@@ -1,6 +1,7 @@
 #pragma once
 #include "Oferta.h"
 
+// repo class
 class Repo 
 {
 	private:

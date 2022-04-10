@@ -2,6 +2,7 @@
 #include "Service.h"
 #include "Oferta.h"
 
+// console class
 class console
 {
 	friend class Service;

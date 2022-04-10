@@ -20,7 +20,7 @@ void console::run()
 		switch (command)
 		{
 
-		/// iesire
+		//// iesire
 		case 0:
 			return;
 			break;

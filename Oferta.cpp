@@ -17,9 +17,8 @@ Oferta::Oferta(string denumire, string destinatie, string tip, double pret, int 
 //	this->pret = x.pret;
 //	this->tip = x.tip;
 //	return *this;
-//}
-
-// Copy Constructor
+///}
+//// Copy Constructor
 Oferta::Oferta(const Oferta& x)
 {
 	this->denumire = x.denumire;

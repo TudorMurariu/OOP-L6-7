@@ -6,7 +6,7 @@ bool Valid::non_negative(int x) noexcept {
 
 bool Valid::is_id(string x)
 {
-	/* Verificam daca un string este id*/
+	/* Verificam daca un string este id */
 	int num;
 	try {
 		num = stoi(x);

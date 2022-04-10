@@ -21,6 +21,7 @@ class Service
 		my_vector get_list();
 };
 
+// tests
 void test_service(Service srv);
 void test_adauga(Service srv);
 void test_stergere(Service srv);

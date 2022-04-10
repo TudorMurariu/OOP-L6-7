@@ -58,5 +58,5 @@ string Repo::Modificare(Oferta x)
 	return "Nu exista o oferta cu id-ul dat";
 }
 
-
+//
 

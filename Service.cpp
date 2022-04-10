@@ -143,7 +143,7 @@ void Service::Adaugare_Predefinite()
 	this->repo.Add(x8);
 }
 
-/// Functii de teste
+///// Functii de teste
 
 void test_service(Service srv)
 {

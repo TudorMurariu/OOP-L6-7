@@ -2,7 +2,7 @@
 
 my_vector::my_vector()
 {
-	/// <summary>
+	//// <summary>
 	/// Initiem datele si facem loc in memorie pentru ele
 	/// </summary>
 	this->len = 0;
