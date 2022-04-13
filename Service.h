@@ -6,22 +6,21 @@
 class Service
 {
 	friend class console;
-	private:
-		Repo repo;
-		Valid valid;
-	public:
-		Service(Repo repo, Valid valid);
-		string Adauga(string denumire, string destinatie, string tip, string pret);
-		string Sterge(string id);
-		string Modifica(string denumire, string destinatie, string tip, string pret, string id);
-		my_vector Filtrare1(string dest, my_vector v);
-		my_vector Filtrare2(double pret, my_vector v);
-		my_vector Sortare(int x, my_vector v);
-		void Adaugare_Predefinite();
-		my_vector get_list();
+private:
+	Repo repo;
+	Valid valid;
+public:
+	Service(Repo repo, Valid valid);
+	string Adauga(string denumire, string destinatie, string tip, string pret);
+	string Sterge(string id);
+	string Modifica(string denumire, string destinatie, string tip, string pret, string id);
+	my_vector<Oferta> Filtrare1(string dest, my_vector<Oferta> v);
+	my_vector<Oferta> Filtrare2(double pret, my_vector<Oferta> v);
+	my_vector<Oferta> Sortare(int x, my_vector<Oferta> v);
+	void Adaugare_Predefinite();
+	my_vector<Oferta> get_list();
 };
 
-// tests
 void test_service(Service srv);
 void test_adauga(Service srv);
 void test_stergere(Service srv);

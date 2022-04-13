@@ -1,11 +1,11 @@
 #include "Repo.h"
 
-Repo::Repo(my_vector l)
+Repo::Repo(my_vector<Oferta> l)
 {
 	this->Lista_oferte = l;
 }
 
-my_vector Repo::get_list()
+my_vector<Oferta> Repo::get_list()
 {
 	return this->Lista_oferte;
 }
@@ -30,16 +30,16 @@ void Repo::Add(Oferta x)
 
 string Repo::Sterge(int id)
 {
-	/* Stergem elementul cu id ul id daca acesta exista , altfel trimitem 
+	/* Stergem elementul cu id ul id daca acesta exista , altfel trimitem
 	un mesaj de eroare */
-	
+
 	const int poz = this->cauta_id(id);
 	if (poz != -1)
 	{
-		this->Lista_oferte.erase(this->Lista_oferte.begin() + poz);
+		this->Lista_oferte.erase(poz);
 		return "";
 	}
-	
+
 	return "Nu exista o oferta cu id-ul dat";
 }
 
@@ -51,12 +51,12 @@ string Repo::Modificare(Oferta x)
 	const int poz = this->cauta_id(x.id);
 	if (poz != -1)
 	{
-		this->Lista_oferte.at(poz) = x;
+		this->Lista_oferte.v[poz] = x;
 		return "";
 	}
 
 	return "Nu exista o oferta cu id-ul dat";
 }
 
-//
+
 

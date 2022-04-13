@@ -2,7 +2,7 @@
 #include "Oferta.h"
 #include <exception>
 
-class Valid 
+class Valid
 {
 public:
 	bool non_negative(int x) noexcept;
@@ -11,7 +11,6 @@ public:
 	bool is_pret(string x);
 };
 
-// tests:
 void tests_validators(Valid valid);
 void test_is_id(Valid valid);
 void test_is_pret(Valid valid);

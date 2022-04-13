@@ -6,12 +6,12 @@ bool Valid::non_negative(int x) noexcept {
 
 bool Valid::is_id(string x)
 {
-	/* Verificam daca un string este id */
+	/* Verificam daca un string este id*/
 	int num;
 	try {
 		num = stoi(x);
 	}
-	catch (exception e){
+	catch (exception e) {
 		return false;
 	}
 
@@ -61,4 +61,6 @@ void test_is_pret(Valid valid)
 	assert(valid.is_id("a32.a") == false);
 	assert(valid.is_id("") == false);
 	assert(valid.is_id("a32   5") == false);
+	assert(valid.is_id("-2") == false);
+	assert(valid.is_id("adwaw") == false);
 }

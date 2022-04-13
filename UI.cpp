@@ -1,6 +1,6 @@
 #include "UI.h"
 
-console::console(const Service &srv) :srv(srv){
+console::console(const Service& srv) :srv(srv) {
 	this->srv = srv;
 }
 
@@ -11,7 +11,7 @@ void console::run()
 	while (true)
 	{
 		int x;
-		string error,destinatie,id;
+		string error, destinatie, id;
 		double pret;
 		int command;
 		cout << "Introdu o comanda : ";
@@ -20,19 +20,19 @@ void console::run()
 		switch (command)
 		{
 
-		//// iesire
+			/// iesire
 		case 0:
 			return;
 			break;
 
-		/// adaugare
+			/// adaugare
 		case 1:
 			error = this->adauga_oferta();
 			if (error != "")
 				cout << error << endl;
 			break;
 
-		/// stergere
+			/// stergere
 		case 2:
 			id = this->citire_id();
 			error = this->srv.Sterge(id);
@@ -40,19 +40,19 @@ void console::run()
 				cout << error << endl;
 			break;
 
-		/// modificare
+			/// modificare
 		case 3:
 			error = this->modifica_oferta();
 			if (error != "")
 				cout << error << endl;
 			break;
 
-		/// afisare
+			/// afisare
 		case 4:
 			this->afis_lista(this->srv.get_list());
 			break;
 
-		/// filtrare
+			/// filtrare
 		case 5:
 			cout << "Dupa ce vreti sa filtrati?\n1 - dupa destinatie\n2 - dupa pret\n";
 			cin >> x;
@@ -62,19 +62,19 @@ void console::run()
 			{
 				cout << "Destiantia cautata : ";
 				cin >> destinatie;
-				my_vector v = this->srv.Filtrare1(destinatie, this->srv.get_list());
+				my_vector<Oferta> v = this->srv.Filtrare1(destinatie, this->srv.get_list());
 				this->afis_lista(v);
 			}
 			else // dupa pret
 			{
 				cout << "Pretul cautat este : ";
 				cin >> pret;
-				my_vector v = this->srv.Filtrare2(pret, this->srv.get_list());
+				my_vector<Oferta> v = this->srv.Filtrare2(pret, this->srv.get_list());
 				this->afis_lista(v);
 			}
 			break;
 
-		/// sortare
+			/// sortare
 		case 6:
 			cout << "Dupa ce vreti sa sortati lista?\n";
 			cout << "1 - Dupa denumire" << endl;
@@ -87,7 +87,7 @@ void console::run()
 
 			break;
 
-		/// afisare comenzi
+			/// afisare comenzi
 		case 7:
 			cout << "Comenzile sunt : \n";
 			cout << "0 - pentru a inchide programul\n";
@@ -101,7 +101,7 @@ void console::run()
 			cout << "8 - adaugare oferte predefinite\n";
 			break;
 
-		/// adaugare predefinite
+			/// adaugare predefinite
 		case 8:
 			this->srv.Adaugare_Predefinite();
 			cout << "Ofertele au fost adaugate!\n";
@@ -153,7 +153,7 @@ string console::modifica_oferta()
 	cout << "Pretul : ";
 	string pret;
 	cin >> pret;
-	return this->srv.Modifica(denumire, destinatie, tip, pret,id);
+	return this->srv.Modifica(denumire, destinatie, tip, pret, id);
 }
 
 string console::citire_id()
@@ -164,10 +164,10 @@ string console::citire_id()
 	return id;
 }
 
-void console::afis_lista(my_vector l)
+void console::afis_lista(my_vector<Oferta> l)
 {
 	/// Afiseaza lista de oferte pe ecran
 	cout << "id       denumire       destinatie       tip       pret\n";
 	for (int i = 0; i < l.size(); i++)
-		l.v[i].show_oferta();
+		l.at(i).show_oferta();
 }
