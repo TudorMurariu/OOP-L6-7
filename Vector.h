@@ -148,18 +148,15 @@ class Iterator {
 			return this->lista.at(this->i);
 		}
 
-		void urmator()
-		{
+		void urmator() noexcept {
 			i++;
 		}
 
-		void prim()
-		{
+		void prim() noexcept {
 			i = 0;
 		}
 
-		bool valid()
-		{
+		bool valid() noexcept{
 			return this->i > 0 && this->i < lista.len;
 		}
 };
