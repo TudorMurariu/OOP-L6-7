@@ -116,6 +116,7 @@ void console::run()
 			/// goleste cos
 		case 9:
 			this->srv.goleste_cos();
+			cout << "Cosul are " << this->srv.get_cos().size() << "elemente";
 			break;
 
 			/// adauga in cos
@@ -127,6 +128,7 @@ void console::run()
 			if (error != "")
 				cout << error;
 
+			cout << "\nCosul are " << this->srv.get_cos().size() << "elemente";
 			break;
 
 			/// genereaza cos
@@ -135,12 +137,13 @@ void console::run()
 			cin >> x;
 
 			this->srv.genereaza(x);
-
+			cout << "\nCosul are " << this->srv.get_cos().size() << "elemente";
 			break;
 
 			/// afis cos
 		case 12:
 			this->afis_lista(this->srv.get_cos());
+			cout << "\nCosul are " << this->srv.get_cos().size() << "elemente";
 			break;
 
 		default:
