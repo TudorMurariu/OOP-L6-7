@@ -11,7 +11,8 @@ void console::run()
 	while (true)
 	{
 		int x;
-		string error, destinatie, id,denumire;
+		unordered_map<string, int> map;
+		string error, destinatie, id, denumire;
 		double pret;
 		int command;
 		cout << endl;
@@ -105,6 +106,7 @@ void console::run()
 			cout << "10 - adauga in cos" << endl;
 			cout << "11 - genereaza cos" << endl;
 			cout << "12 - afiseaza cos" << endl;
+			cout << "13 - afiseaza frecventa destinatiilor";
 			break;
 
 			/// adaugare predefinite
@@ -144,6 +146,14 @@ void console::run()
 		case 12:
 			this->afis_lista(this->srv.get_cos());
 			cout << "\nCosul are " << this->srv.get_cos().size() << "elemente";
+			break;
+
+			/// map
+		case 13:
+			map = this->srv.getFrecvente();
+			for (auto &x : map)
+				cout << x.first << " " << x.second << endl;
+
 			break;
 
 		default:

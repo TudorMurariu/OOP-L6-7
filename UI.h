@@ -1,6 +1,7 @@
 #pragma once
 #include "Service.h"
 #include "Oferta.h"
+#include <unordered_map>
 
 class console
 {

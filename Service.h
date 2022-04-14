@@ -3,6 +3,7 @@
 #include "Repo.h"
 #include "Validators.h"
 #include "wishlist_Repo.h"
+#include <unordered_map>
 
 class Service
 {
@@ -25,6 +26,7 @@ public:
 	string add_in_wish(string denumire);
 	void genereaza(int x);
 	vector<Oferta> get_cos();
+	unordered_map<string, int> getFrecvente();
 };
 
 void test_service(Service srv);

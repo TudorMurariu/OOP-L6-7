@@ -31,7 +31,8 @@ string Service::Sterge(string id)
 	if (!this->valid.is_id(id))
 		return "ID gresit\n";
 	const int id_int = stoi(id);
-	return this->repo.Sterge(id_int);
+	string err = this->repo.Sterge(id_int);
+	return err;
 }
 
 vector<Oferta> Service::get_list()
@@ -181,6 +182,22 @@ vector<Oferta> Service::get_cos()
 	return this->wish.getList();
 }
 
+
+unordered_map<string, int> Service::getFrecvente()
+{
+	/*
+		Returnam map-ul cu frecventele destinatiilor
+	*/
+	unordered_map<string, int> map;
+	vector<Oferta> v = this->get_list();
+	for (int i = 0; i < v.size(); i++)
+		if (map.find(v.at(i).destinatie) != map.end())
+			map[v.at(i).destinatie]++;
+		else
+			map[v.at(i).destinatie] = 1;
+
+	return map;
+}
 
 /// Functii de teste
 
