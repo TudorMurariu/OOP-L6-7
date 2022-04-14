@@ -2,6 +2,7 @@
 #include <string>
 
 #include "Oferta.h"
+#include "wishlist_Repo.h"
 #include "UI.h"
 #include "Service.h"
 #include "Repo.h"
@@ -13,7 +14,6 @@
 #include <vector>
 using namespace std;
 
-void test_iterator();
 void all_tests();
 void start();
 
@@ -33,10 +33,10 @@ void all_tests()
     vector<Oferta> Lista_oferte;
     Valid valid;
     Repo repo(Lista_oferte);
-    Service service(repo, valid);
+    wish_list wish;
+    Service service(repo, wish, valid);
     test_service(service);
     tests_validators(valid);
-    test_iterator();
 }
 
 void start()
@@ -44,7 +44,8 @@ void start()
     vector<Oferta> Lista_oferte;
     Valid valid;
     Repo repo(Lista_oferte);
-    Service service(repo, valid);
+    wish_list wish;
+    Service service(repo, wish, valid);
     console consola(service);
     consola.run();
 }

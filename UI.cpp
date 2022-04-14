@@ -11,11 +11,13 @@ void console::run()
 	while (true)
 	{
 		int x;
-		string error, destinatie, id;
+		string error, destinatie, id,denumire;
 		double pret;
 		int command;
+		cout << endl;
 		cout << "Introdu o comanda : ";
 		cin >> command;
+		cout << endl;
 
 		switch (command)
 		{
@@ -62,14 +64,14 @@ void console::run()
 			{
 				cout << "Destiantia cautata : ";
 				cin >> destinatie;
-				my_vector<Oferta> v = this->srv.Filtrare1(destinatie, this->srv.get_list());
+				vector<Oferta> v = this->srv.Filtrare1(destinatie, this->srv.get_list());
 				this->afis_lista(v);
 			}
 			else // dupa pret
 			{
 				cout << "Pretul cautat este : ";
 				cin >> pret;
-				my_vector<Oferta> v = this->srv.Filtrare2(pret, this->srv.get_list());
+				vector<Oferta> v = this->srv.Filtrare2(pret, this->srv.get_list());
 				this->afis_lista(v);
 			}
 			break;
@@ -99,12 +101,46 @@ void console::run()
 			cout << "6 - sortare" << endl;
 			cout << "7 - afisarea tuturor comenzilor\n";
 			cout << "8 - adaugare oferte predefinite\n";
+			cout << "9 - goleste cos" << endl;
+			cout << "10 - adauga in cos" << endl;
+			cout << "11 - genereaza cos" << endl;
+			cout << "12 - afiseaza cos" << endl;
 			break;
 
 			/// adaugare predefinite
 		case 8:
 			this->srv.Adaugare_Predefinite();
 			cout << "Ofertele au fost adaugate!\n";
+			break;
+
+			/// goleste cos
+		case 9:
+			this->srv.goleste_cos();
+			break;
+
+			/// adauga in cos
+		case 10:
+			cout << "Denumirea ofertei pe care o vreti adaugata : ";
+			cin >> denumire;
+
+			error = this->srv.add_in_wish(denumire);
+			if (error != "")
+				cout << error;
+
+			break;
+
+			/// genereaza cos
+		case 11:
+			cout << "Numarul de elemente care trebuie generate : ";
+			cin >> x;
+
+			this->srv.genereaza(x);
+
+			break;
+
+			/// afis cos
+		case 12:
+			this->afis_lista(this->srv.get_cos());
 			break;
 
 		default:
@@ -164,7 +200,7 @@ string console::citire_id()
 	return id;
 }
 
-void console::afis_lista(my_vector<Oferta> l)
+void console::afis_lista(vector<Oferta> l)
 {
 	/// Afiseaza lista de oferte pe ecran
 	cout << "id       denumire       destinatie       tip       pret\n";

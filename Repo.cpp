@@ -1,11 +1,11 @@
 #include "Repo.h"
 
-Repo::Repo(my_vector<Oferta> l)
+Repo::Repo(vector<Oferta> l)
 {
 	this->Lista_oferte = l;
 }
 
-my_vector<Oferta> Repo::get_list()
+vector<Oferta> Repo::get_list()
 {
 	return this->Lista_oferte;
 }
@@ -13,13 +13,30 @@ my_vector<Oferta> Repo::get_list()
 int Repo::cauta_id(int id)
 {
 	/* cautam un id dat */
-	for (int i = 0; i < this->Lista_oferte.size(); i++)
-	{
-		if (id == this->Lista_oferte.at(i).id)
-			return i;
-	}
+	Oferta x;
+	x.id = id;
+	vector<Oferta>::iterator it = find(this->Lista_oferte.begin(), this->Lista_oferte.end(), x);
 
+	int poz = distance(this->Lista_oferte.begin(), it);
+	if (it != this->Lista_oferte.end())
+		return poz;
 	return -1;
+}
+
+Oferta Repo::cauta_denumire(string denumire)
+{
+	/* cautam dupa o denumire */
+	Oferta x;
+	vector<Oferta>::iterator it = find_if(
+		this->Lista_oferte.begin(),
+		this->Lista_oferte.end(),
+		[denumire](const Oferta& x)
+		{
+			return x.denumire == denumire;
+		});
+	if (it == this->Lista_oferte.end())
+		return x;
+	return *it;
 }
 
 void Repo::Add(Oferta x)
@@ -36,7 +53,7 @@ string Repo::Sterge(int id)
 	const int poz = this->cauta_id(id);
 	if (poz != -1)
 	{
-		this->Lista_oferte.erase(poz);
+		this->Lista_oferte.erase(this->Lista_oferte.begin() + poz);
 		return "";
 	}
 
@@ -51,12 +68,9 @@ string Repo::Modificare(Oferta x)
 	const int poz = this->cauta_id(x.id);
 	if (poz != -1)
 	{
-		this->Lista_oferte.v[poz] = x;
+		this->Lista_oferte.at(poz) = x;
 		return "";
 	}
 
 	return "Nu exista o oferta cu id-ul dat";
 }
-
-
-

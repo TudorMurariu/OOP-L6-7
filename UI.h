@@ -1,7 +1,6 @@
 #pragma once
 #include "Service.h"
 #include "Oferta.h"
-#include "Vector.h"
 
 class console
 {
@@ -14,5 +13,5 @@ public:
 	string adauga_oferta();
 	string modifica_oferta();
 	string citire_id();
-	void afis_lista(my_vector<Oferta> l);
+	void afis_lista(vector<Oferta> l);
 };

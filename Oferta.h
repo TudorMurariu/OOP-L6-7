@@ -17,7 +17,11 @@ public:
 
 	Oferta();
 	Oferta(string denumire, string destinatie, string tip, double pret, int id);
-	//Oferta& operator =(const Oferta& x);
+	Oferta& operator =(const Oferta& x);
+	bool operator ==(const Oferta& ot)
+	{
+		return id == ot.id;
+	}
 	Oferta(const Oferta& x);
 	~Oferta() = default;
 	void show_oferta() const;

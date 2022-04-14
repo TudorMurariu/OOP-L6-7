@@ -18,15 +18,15 @@ Oferta::Oferta(string denumire, string destinatie, string tip, double pret, int 
 	this->id = id;
 }
 
-//Oferta& Oferta::operator =(const Oferta& x)
-//{
-//	this->denumire = x.denumire;
-//	this->destinatie = x.destinatie;
-//	this->id = x.id;
-//	this->pret = x.pret;
-//	this->tip = x.tip;
-//	return *this;
-//}
+Oferta& Oferta::operator =(const Oferta& x)
+{
+	this->denumire = x.denumire;
+	this->destinatie = x.destinatie;
+	this->id = x.id;
+	this->pret = x.pret;
+	this->tip = x.tip;
+	return *this;
+}
 
 // Copy Constructor
 Oferta::Oferta(const Oferta& x)
