@@ -173,7 +173,7 @@ string Service::add_in_wish(string denumire)
 
 void Service::genereaza(int x)
 {
-	this->wish.genereaza(x);
+	this->wish.genereaza(x, this->get_list());
 }
 
 vector<Oferta> Service::get_cos()
