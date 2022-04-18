@@ -12,7 +12,7 @@ void console::run()
 	{
 		int x;
 		unordered_map<string, int> map;
-		string error, destinatie, id, denumire;
+		string error, destinatie, id, denumire, fisier;
 		double pret;
 		int command;
 		cout << endl;
@@ -106,7 +106,8 @@ void console::run()
 			cout << "10 - adauga in cos" << endl;
 			cout << "11 - genereaza cos" << endl;
 			cout << "12 - afiseaza cos" << endl;
-			cout << "13 - afiseaza frecventa destinatiilor";
+			cout << "13 - afiseaza frecventa destinatiilor" << endl;
+			cout << "14 - export " << endl;
 			break;
 
 			/// adaugare predefinite
@@ -151,9 +152,18 @@ void console::run()
 			/// map
 		case 13:
 			map = this->srv.getFrecvente();
-			for (auto &x : map)
+			for (const auto &x : map)
 				cout << x.first << " " << x.second << endl;
 
+			break;
+
+			/// Export
+		case 14:
+			cin >> fisier;
+			error = this->srv.Export(fisier);
+
+			if (error != "")
+				cout << error << endl;
 			break;
 
 		default:

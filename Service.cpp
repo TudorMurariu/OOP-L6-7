@@ -87,8 +87,7 @@ vector<Oferta> Service::Filtrare2(double pret, vector<Oferta> v)
 		v.begin(),
 		v.end(),
 		back_inserter(new_v),
-		[pret](const Oferta& x)
-		{
+		[pret](const Oferta& x) noexcept {
 			return x.pret <= pret;
 		}
 	);
@@ -183,7 +182,7 @@ vector<Oferta> Service::get_cos()
 }
 
 
-unordered_map<string, int> Service::getFrecvente()
+unordered_map<string, int>& Service::getFrecvente()
 {
 	/*
 		Returnam map-ul cu frecventele destinatiilor
@@ -197,6 +196,20 @@ unordered_map<string, int> Service::getFrecvente()
 			map[v.at(i).destinatie] = 1;
 
 	return map;
+}
+
+string Service::Export(string fisier)
+{
+	unsigned int n = fisier.length(),nr = 0;
+	for (int i = 0; i < n; i++)
+		if (fisier.at(i) == '.')
+			nr++;
+
+	if (nr != 1)
+		return "Denumire de fisier gresita!";
+
+	this->wish.Export(fisier);
+	return "";
 }
 
 /// Functii de teste

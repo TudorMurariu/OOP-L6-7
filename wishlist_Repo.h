@@ -5,6 +5,7 @@
 #include <random>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 using namespace std;
 
 class wish_list
@@ -17,4 +18,5 @@ public:
 	void add(Oferta x);
 	void genereaza(int x, vector<Oferta> v);
 	vector<Oferta> getList();
+	void Export(string nume_fisier);
 };

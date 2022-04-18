@@ -18,8 +18,7 @@ public:
 	Oferta();
 	Oferta(string denumire, string destinatie, string tip, double pret, int id);
 	Oferta& operator =(const Oferta& x);
-	bool operator ==(const Oferta& ot)
-	{
+	bool operator ==(const Oferta& ot) noexcept {
 		return id == ot.id;
 	}
 	Oferta(const Oferta& x);

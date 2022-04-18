@@ -26,7 +26,8 @@ public:
 	string add_in_wish(string denumire);
 	void genereaza(int x);
 	vector<Oferta> get_cos();
-	unordered_map<string, int> getFrecvente();
+	unordered_map<string, int>& getFrecvente();
+	string Export(string fisier);
 };
 
 void test_service(Service srv);

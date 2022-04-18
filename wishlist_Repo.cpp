@@ -27,3 +27,14 @@ vector<Oferta> wish_list::getList()
 {
 	return this->Lista;
 }
+
+void wish_list::Export(string nume_fisier)
+{
+	ofstream fout(nume_fisier);
+	fout << "id       denumire       destinatie       tip       pret\n";
+	for (auto& x : this->Lista)
+	{
+		fout << x.id << "       " << x.denumire << "       " << x.destinatie
+			<< "       " << x.tip << "       " << x.pret << "$\n";
+	}
+}
