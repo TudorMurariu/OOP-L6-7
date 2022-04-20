@@ -1,11 +1,7 @@
 #include "Service.h"
 
 
-Service::Service(Repo repo,wish_list wish, Valid valid) {
-	this->repo = repo;
-	this->wish = wish;
-	this->valid = valid;
-}
+Service::Service(Repo& repo1,wish_list wish1, Valid valid1) : repo(repo1) , wish(wish1) , valid(valid1) {}
 
 static int id_count = 0;
 string Service::Adauga(string denumire, string destinatie, string tip, string pret)
@@ -182,7 +178,7 @@ vector<Oferta> Service::get_cos()
 }
 
 
-unordered_map<string, int>& Service::getFrecvente()
+unordered_map<string, int> Service::getFrecvente()
 {
 	/*
 		Returnam map-ul cu frecventele destinatiilor
@@ -206,15 +202,25 @@ string Service::Export(string fisier)
 			nr++;
 
 	if (nr != 1)
-		return "Denumire de fisier gresita!";
+		fisier += ".html";
 
 	this->wish.Export(fisier);
 	return "";
 }
 
+void Service::Delete_All()
+{
+	this->repo.Delete_All();
+}
+
+string Service::Undo()
+{
+	return this->repo.Undo_();
+}
+
 /// Functii de teste
 
-void test_service(Service srv)
+void test_service(Service& srv)
 {
 	test_adauga(srv);
 	test_stergere(srv);
@@ -227,9 +233,17 @@ void test_service(Service srv)
 	test_Sortare(srv);
 	id_count = 0;
 	test_wish_list(srv);
+	id_count = 0;
+	test_Export(srv);
+	id_count = 0;
+	srv.get_cos();
+	test_map(srv);
+	id_count = 0;
+	test_Undo(srv);
+	id_count = 0;
 }
 
-void test_adauga(Service srv)
+void test_adauga(Service& srv)
 {
 	srv.Adauga("OFERTA", "destinatie", "tip", "33.4");
 	assert(srv.get_list().at(0).denumire == "OFERTA");
@@ -239,9 +253,10 @@ void test_adauga(Service srv)
 	assert(srv.get_list().at(0).denumire != "312rewsda");
 	assert(srv.get_list().size() == 1);
 	assert(srv.Adauga("OFERTA", "destinatie", "tip", "asdff") == "Pret incorect!\n");
+	srv.Delete_All();
 }
 
-void test_stergere(Service srv)
+void test_stergere(Service& srv)
 {
 	srv.Adauga("OFERTA", "destinatie", "tip", "33.4");
 	srv.Adauga("OFERTA1", "destinatie213", "tip132", "33.432");
@@ -250,9 +265,10 @@ void test_stergere(Service srv)
 	assert(srv.Sterge("5") == "Nu exista o oferta cu id-ul dat");
 	assert(srv.Sterge("sdfs") == "ID gresit\n");
 	assert(srv.Sterge("2") == "");
+	srv.Delete_All();
 }
 
-void test_modificare(Service srv)
+void test_modificare(Service& srv)
 {
 	srv.Adauga("OFERTA", "destinatie", "tip", "33.4");
 	assert(srv.Modifica("vacanta", "Iasi", "tip1", "25.6", "7") == "Nu exista o oferta cu id-ul dat");
@@ -264,17 +280,19 @@ void test_modificare(Service srv)
 	assert(v.at(0).destinatie == "destinatie");
 	assert(v.at(0).tip == "tip1");
 	assert(v.at(0).pret == 33);
+	srv.Delete_All();
 }
 
-void test_Filtrare1(Service srv)
+void test_Filtrare1(Service& srv)
 {
 	srv.Adaugare_Predefinite();
 	vector<Oferta> v1 = srv.Filtrare1("Iasi", srv.get_list());
 	assert(v1.at(0).pret == 552.7);
 	assert(v1.size() == 1);
+	srv.Delete_All();
 }
 
-void test_Filtrare2(Service srv)
+void test_Filtrare2(Service& srv)
 {
 	srv.Adaugare_Predefinite();
 	vector<Oferta> v1 = srv.Filtrare2(32, srv.get_list());
@@ -282,9 +300,10 @@ void test_Filtrare2(Service srv)
 	assert(v1.at(0).pret == 32);
 	assert(v1.at(1).pret == 5);
 	assert(v1.at(0).denumire == "Denumire2");
+	srv.Delete_All();
 }
 
-void test_Sortare(Service srv)
+void test_Sortare(Service& srv)
 {
 	srv.Adaugare_Predefinite();
 	vector<Oferta> v1 = srv.Sortare(1, srv.get_list());
@@ -294,9 +313,10 @@ void test_Sortare(Service srv)
 	vector<Oferta> v3 = srv.Sortare(3, srv.get_list());
 	assert(v3.at(0).tip == "tip1");
 	assert(v3.at(1).tip == "tip2");
+	srv.Delete_All();
 }
 
-void test_wish_list(Service srv)
+void test_wish_list(Service& srv)
 {
 	srv.Adaugare_Predefinite();
 	assert(srv.add_in_wish("idk") == "Denumirea nu exista.\n");
@@ -307,4 +327,49 @@ void test_wish_list(Service srv)
 	assert(srv.get_cos().size() == 2);
 	srv.goleste_cos();
 	srv.genereaza(3);
+	srv.Delete_All();
+}
+
+void test_map(Service& srv)
+{
+	srv.Adaugare_Predefinite();
+	srv.Adauga("SUPER_OFERTA", "Cluj", "tip32", "78");
+	srv.Adauga("SUPER_OFERTA2", "Cluj", "tip31322", "73128");
+	unordered_map<string, int> frecv = srv.getFrecvente();
+	assert(frecv["Bucuresti"] == 1);
+	assert(frecv["Cluj"] == 2);
+	srv.Delete_All();
+}
+
+void test_Export(Service& srv)
+{
+	srv.Adauga("SUPER_OFERTA", "Timisoara", "vacanta", "542.2");
+	srv.Adauga("Denumire2", "NuGalati", "tip2", "32");
+	srv.Adauga("Denumire1", "Bucuresti", "tip1", "77.2");
+
+	srv.add_in_wish("SUPER_OFERTA");
+	srv.add_in_wish("Denumire2"); 
+	srv.add_in_wish("Denumire1");
+
+	assert(srv.Export("text") == "");
+	assert(srv.Export("text.txt") == "");
+	srv.Delete_All();
+}
+
+void test_Undo(Service& srv)
+{
+	assert(srv.Undo() == "Nu avem la ce da undo!!!");
+	srv.Adauga("SUPER_OFERTA", "Timisoara", "vacanta", "542.2");
+	srv.Adauga("Denumire2", "NuGalati", "tip2", "32");
+	srv.Adauga("Denumire1", "Bucuresti", "tip1", "77.2");
+
+	srv.Undo();
+	assert(srv.get_list().size() == 2);
+	srv.Sterge("1");
+	srv.Undo();
+	assert(srv.get_list().size() == 2);
+	srv.Modifica("Denumire", "NuGalati!!!!!!!", "tip2", "32", "1");
+	srv.Undo();
+	assert(srv.get_list().at(1).denumire == "Denumire2");
+	srv.Delete_All();
 }

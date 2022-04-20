@@ -39,10 +39,13 @@ Oferta Repo::cauta_denumire(string denumire)
 	return *it;
 }
 
-void Repo::Add(Oferta x)
+void Repo::Add(Oferta &x)
 {
 	/* Adaugam un element la finalul listei */
 	this->Lista_oferte.push_back(x);
+
+	//unique_ptr<Undo> new_undo = make_unique<Undo_Add>(this);
+	this->Undo_List.push_back(make_unique<Undo_Add>(*this));
 }
 
 string Repo::Sterge(int id)
@@ -53,6 +56,7 @@ string Repo::Sterge(int id)
 	const int poz = this->cauta_id(id);
 	if (poz != -1)
 	{
+		this->Undo_List.push_back(make_unique<Undo_Delete>(*this, this->Lista_oferte.at(poz)));
 		this->Lista_oferte.erase(this->Lista_oferte.begin() + poz);
 		return "";
 	}
@@ -68,9 +72,33 @@ string Repo::Modificare(Oferta x)
 	const int poz = this->cauta_id(x.id);
 	if (poz != -1)
 	{
+		this->Undo_List.push_back(make_unique<Undo_Modify>(*this, this->Lista_oferte.at(poz)));
 		this->Lista_oferte.at(poz) = x;
 		return "";
 	}
 
 	return "Nu exista o oferta cu id-ul dat";
+}
+
+void Repo::Delete_Last()
+{
+	// Delets the last element added
+	this->Lista_oferte.pop_back();
+}
+
+void Repo::Delete_All()
+{
+	this->Lista_oferte.clear();
+	this->Undo_List.clear();
+}
+
+string Repo::Undo_()
+{
+	if (this->Undo_List.empty())
+		return "Nu avem la ce da undo!!!";
+
+	this->Undo_List.back()->undo();
+	this->Undo_List.pop_back();
+
+	return "";
 }

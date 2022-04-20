@@ -1,8 +1,6 @@
 #include "UI.h"
 
-console::console(const Service& srv) :srv(srv) {
-	this->srv = srv;
-}
+console::console(const Service& srv) :srv(srv) {}
 
 void console::run()
 {
@@ -108,6 +106,7 @@ void console::run()
 			cout << "12 - afiseaza cos" << endl;
 			cout << "13 - afiseaza frecventa destinatiilor" << endl;
 			cout << "14 - export " << endl;
+			cout << "15 - undo " << endl;
 			break;
 
 			/// adaugare predefinite
@@ -164,6 +163,17 @@ void console::run()
 
 			if (error != "")
 				cout << error << endl;
+			break;
+
+			/// Undo
+
+		case 15:
+			error = this->srv.Undo();
+
+			if (error != "")
+				cout << error << endl;
+			else
+				cout << "undo efectuat." << endl;
 			break;
 
 		default:

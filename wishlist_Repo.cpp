@@ -31,10 +31,15 @@ vector<Oferta> wish_list::getList()
 void wish_list::Export(string nume_fisier)
 {
 	ofstream fout(nume_fisier);
-	fout << "id       denumire       destinatie       tip       pret\n";
+	fout << "<html>";
+	fout << "<style> p {text-align: center;} body{background-color: #E6E6FA;} </style>";
+	fout << "<body>";
+	fout << "<p><big><b>id &nbsp;&nbsp; denumire &nbsp;&nbsp; destinatie &nbsp;&nbsp; tip &nbsp;&nbsp; pret</b></big><br>";
 	for (auto& x : this->Lista)
 	{
-		fout << x.id << "       " << x.denumire << "       " << x.destinatie
-			<< "       " << x.tip << "       " << x.pret << "$\n";
+		fout << x.id << "&nbsp;&nbsp;&nbsp;&nbsp;" << x.denumire << "&nbsp;&nbsp;&nbsp;&nbsp;" << x.destinatie
+			<< "&nbsp;&nbsp;&nbsp;&nbsp;" << x.tip << "&nbsp;&nbsp;&nbsp;&nbsp;" << x.pret << "<br>";
 	}
+	fout << "</p></body>";
+	fout << "<html>";
 }
